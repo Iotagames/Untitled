@@ -4,6 +4,7 @@ import iotagames.cybergame.entities.Enemy;
 import iotagames.cybergame.entities.Entity;
 import iotagames.cybergame.entities.NPC;
 import iotagames.cybergame.entities.Player;
+import iotagames.cybergame.utilities.Camera;
 import iotagames.cybergame.utilities.TileMap;
 
 import org.newdawn.slick.GameContainer;
@@ -19,13 +20,14 @@ public class ShmupGameState extends GameState {
     
     public ShmupGameState() { this("hubworld"); }
     
-    public ShmupGameState(String map) {
-       this.map = new TileMap(map);
+    public ShmupGameState(String mapFile) {
+       map = new TileMap(mapFile);
        entities.add(guy);
        entities.add(enemy);
        entities.add(npc);
        entities.add(npca);
        entities.add(npcb);
+       camera = new Camera();
        camera.targetted = guy;
     }
 
