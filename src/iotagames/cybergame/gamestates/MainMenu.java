@@ -6,8 +6,6 @@ import iotagames.cybergame.ui.Button;
 
 public class MainMenu extends GameState {
 	public MainMenu() {
-		camera.active = false;
-		
 		Button map1 = new Button("button", "Hub World", 100, 100);
 		map1.mousedown.add(new EntityEvent() {
 			public void onEvent(Entity entity) {

@@ -11,7 +11,7 @@ import org.newdawn.slick.Graphics;
 public class GameState {
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
     public ArrayList<Entity> toDelete = new ArrayList<Entity>();
-    public Camera camera = new Camera();
+    public Camera camera;
     public boolean checkCollisions = true;
     
     public void update(GameContainer gc, int delta) {
@@ -39,9 +39,9 @@ public class GameState {
     
     // Don't override
     public void drawing(GameContainer gc, Graphics g) {
-        camera.translate(gc, g);
+        if (camera != null) camera.translate(gc, g);
         draw(gc, g);
-        camera.untranslate(gc, g);
+        if (camera != null) camera.untranslate(gc, g);
     }
     
     public void draw(GameContainer gc, Graphics g) {
