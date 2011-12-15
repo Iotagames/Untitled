@@ -1,5 +1,6 @@
 package iotagames.cybergame.gamestates.tests;
 
+import java.awt.Point;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -9,11 +10,14 @@ import iotagames.cybergame.entities.Entity;
 import iotagames.cybergame.entities.Player;
 import iotagames.cybergame.events.CollisionEvent;
 import iotagames.cybergame.events.EntityEvent;
+import iotagames.cybergame.events.TileMapEvent;
 import iotagames.cybergame.gamestates.GameState;
+import iotagames.cybergame.gamestates.TileMapState;
 import iotagames.cybergame.ui.Text;
 import iotagames.cybergame.ui.TextField;
+import iotagames.cybergame.utilities.TileMap;
 
-public class CollisionEventsTest extends GameState {
+public class CollisionEventsTest extends TileMapState {
     Player guy = new Player("player", 300, 300);
     Enemy enemy = new Enemy("bug2", 400, 300);
     Text info = new Text("", 10, 50);
@@ -21,7 +25,7 @@ public class CollisionEventsTest extends GameState {
     boolean testDone = false;
     
 	public CollisionEventsTest() {
-		super();
+		super("map2");
 		entities.clear();
 		entities.add(guy);
 		entities.add(enemy);
@@ -39,6 +43,11 @@ public class CollisionEventsTest extends GameState {
 	}
 	
 	private void addTests() {
+		map.collision.add(new TileMapEvent() {
+			public void onEvent(TileMap map, Entity entity, Point tile) {
+	   			print(entity + " has collided with the tile (" + tile.x + "," + tile.y + ") at " + getTime() + "!");
+			}
+		});
         guy.collision.add(new CollisionEvent() {
 			public void onCollision(Entity first, Entity second) {
 	   			print(first + " has collided with " + second + " at " + getTime() + "!");
