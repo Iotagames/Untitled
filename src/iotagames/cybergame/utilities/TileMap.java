@@ -1,6 +1,10 @@
 package iotagames.cybergame.utilities;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import iotagames.cybergame.entities.Entity;
+import iotagames.cybergame.events.TileMapEvent;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,6 +18,7 @@ public class TileMap {
     private boolean[][] blocked;
     private int size = 32;
     public static String directory = "data/";
+    public ArrayList<TileMapEvent> collision = new ArrayList<TileMapEvent>();
     
     public TileMap(String file) {
     	try {
@@ -57,18 +62,37 @@ public class TileMap {
 	
     public boolean collides(float x, float y)
     {
-        int xBlock = (int)x / size;
-        int yBlock = (int)y / size;
-        return blocked[xBlock][yBlock];
+    	Point tile = tile(x, y);
+        return blocked[tile.x][tile.y];
+    }
+	
+    public Point collisionTile(float x, float y)
+    {
+    	Point tile = tile(x, y);
+    	return (blocked[tile.x][tile.y]) ? tile : null;
     }
     
-    public boolean collides(Entity entity)
+    public Point tile(float x, float y) {
+        return new Point((int)(x/size), (int)(y/size));
+    }
+    
+    public Point collides(Entity entity)
     {
     	Rectangle rect = (Rectangle) entity.boundingBox();
     	float x = rect.getX();
     	float y = rect.getY();
     	float w = rect.getWidth();
     	float h = rect.getHeight();
-    	return collides(x,y) || collides(x+w,y) || collides(x,y+h) || collides(x+w,y+h);
+    	Point tile=null;
+    	tile = collisionTile(x,y);
+    	if (tile == null) tile = collisionTile(x+w,y);
+    	if (tile == null) tile = collisionTile(x,y+h);
+    	if (tile == null) tile = collisionTile(x+w,y+h);
+    	return tile;
+    }
+    
+    public void onCollision(Entity entity, Point tile) {
+    	for (TileMapEvent e : collision)
+    		e.onEvent(this, entity, tile);
     }
 }

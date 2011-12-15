@@ -1,5 +1,7 @@
 package iotagames.cybergame.gamestates;
 
+import java.awt.Point;
+
 import iotagames.cybergame.entities.Enemy;
 import iotagames.cybergame.entities.Entity;
 import iotagames.cybergame.entities.NPC;
@@ -37,9 +39,13 @@ public class ShmupGameState extends GameState {
     
     public void collision(GameContainer gc, int delta) {
     	super.collision(gc, delta);
-        for (Entity e : entities)
-	        if (map.collides(e))
+        for (Entity e : entities) {
+	        Point tile = map.collides(e);
+	        if (tile != null) {
 	        	e.onCollision();
+	        	map.onCollision(e, tile);
+	        }
+        }
     }
     
     public void draw(GameContainer gc, Graphics g) {
