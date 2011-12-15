@@ -1,6 +1,6 @@
-package iotagames.cybergame.gamestate;
+package iotagames.cybergame.gamestates;
 
-import iotagames.cybergame.entity.Entity;
+import iotagames.cybergame.entities.Entity;
 import iotagames.cybergame.utilities.Camera;
 
 import java.util.ArrayList;
@@ -11,6 +11,8 @@ import org.newdawn.slick.Graphics;
 public class GameState {
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
     public ArrayList<Entity> toDelete = new ArrayList<Entity>();
+    public Camera camera = new Camera();
+    public boolean checkCollisions = true;
     
     public void update(GameContainer gc, int delta) {
         for (int i=0; i<entities.size(); ++i) {
@@ -21,9 +23,19 @@ public class GameState {
         for (Entity e : toDelete)
             entities.remove(e);
         toDelete.clear();
+        if (checkCollisions) collision(gc, delta);
     }
     
-    Camera camera = new Camera();
+    public void collision(GameContainer gc, int delta) {
+        for (int i=0; i<entities.size(); ++i) {
+        	for (int j=i+1; j<entities.size(); ++j) {
+        		Entity first = entities.get(i);
+        		Entity second = entities.get(j);
+        		if (first.collides(second))
+        			first.onCollision(second);
+        	}
+        }
+    }
     
     // Don't override
     public void drawing(GameContainer gc, Graphics g) {
