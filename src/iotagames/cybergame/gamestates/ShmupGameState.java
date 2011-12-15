@@ -8,7 +8,6 @@ import iotagames.cybergame.utilities.TileMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class ShmupGameState extends GameState {
     Player guy = new Player("player", 300, 300);
@@ -16,9 +15,12 @@ public class ShmupGameState extends GameState {
     NPC npc = new NPC("npc_ud",256,75);
     NPC npca = new NPC("npc_ud",224,75);
     NPC npcb = new NPC("npc_left",96,256);
-    TileMap map = new TileMap("hubworld");
+    TileMap map;
     
-    public ShmupGameState() throws SlickException {
+    public ShmupGameState() { this("hubworld"); }
+    
+    public ShmupGameState(String map) {
+       this.map = new TileMap(map);
        entities.add(guy);
        entities.add(enemy);
        entities.add(npc);

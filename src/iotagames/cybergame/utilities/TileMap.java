@@ -15,11 +15,15 @@ public class TileMap {
     private int size = 32;
     public static String directory = "data/";
     
-    public TileMap(String file) throws SlickException {
-    	create(file);
+    public TileMap(String file) {
+    	try {
+			create(file);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
     }
     
-	public TileMap(String file, int size) throws SlickException {
+	public TileMap(String file, int size) {
 		this(file);
 		this.size = size;
 	}

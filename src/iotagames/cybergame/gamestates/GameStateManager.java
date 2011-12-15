@@ -8,12 +8,16 @@ import org.newdawn.slick.Graphics;
 
 public class GameStateManager {
     public static ArrayList<GameState> states = new ArrayList<GameState>();
+    private static GameState entryPoint;
     
     public static void init(GameState entryPoint) {
+    	GameStateManager.entryPoint = entryPoint;
         states.add(entryPoint);
     }
     
     public static GameState currentState() {
+    	if (states.size() == 0)
+    		return GameStateManager.entryPoint;
         return states.get(states.size()-1);
     }
     

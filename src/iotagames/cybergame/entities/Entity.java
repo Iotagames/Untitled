@@ -35,6 +35,10 @@ public class Entity
         this.ypos = yPos;
     }
     
+    public Entity(String imageRef) {
+    	this(imageRef, 0, 0);
+    }
+    
     public void loadImage(String imageRef) {
         this.imageRef = imageRef;
         image = images.get(imageRef);
@@ -62,6 +66,28 @@ public class Entity
     
     public Vector2f getCenter() {
         return new Vector2f(xpos+(getWidth()/2f), ypos+(getHeight()/2f));
+    }
+    
+    public Vector2f getPosition() {
+    	return new Vector2f(xpos, ypos);
+    }
+    
+    public void setPosition(float x, float y) {
+    	xpos = x;
+    	ypos = y;
+    }
+    
+    public void setPosition(Vector2f pos) {
+    	setPosition(pos.x, pos.y);
+    }
+    
+    public void move(float x, float y) {
+    	xpos += x;
+    	ypos += y;
+    }
+    
+    public void move(Vector2f pos) {
+    	move(pos.x, pos.y);
     }
     
     public float getWidth() {
