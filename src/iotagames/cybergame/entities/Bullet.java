@@ -1,4 +1,4 @@
-package iotagames.cybergame.entity;
+package iotagames.cybergame.entities;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.util.FastTrig;
@@ -31,8 +31,9 @@ public class Bullet extends Entity
         if (time>=lifespan) die();
         float radAngle = (float) Math.toRadians(angle+90);
         image.setRotation(angle+90);
-        xpos += (float)(speed * FastTrig.cos(radAngle));
-        ypos += (float)(speed * FastTrig.sin(radAngle));
+        xSpeed = (float)(speed * FastTrig.cos(radAngle));
+        ySpeed = (float)(speed * FastTrig.sin(radAngle));
+        super.update(gc, delta);
     }
     
     public boolean passesFilter(Entity other) {

@@ -1,10 +1,9 @@
 package iotagames.cybergame.engine;
 
-import iotagames.cybergame.gamestate.GameStateManager;
-import iotagames.cybergame.gamestate.ShmupGameState;
-
+import iotagames.cybergame.gamestates.*;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -12,7 +11,15 @@ import org.newdawn.slick.SlickException;
 // init calls the entrypoint state, if we want to change it, do it here
 
 public class ShmupGame extends BasicGame {
-    public ShmupGame()
+    public static Font font;
+    
+    public void init(GameContainer container) throws SlickException
+    {
+    	ShmupGame.font = container.getDefaultFont();
+        GameStateManager.init(new MainMenu());
+    }
+    
+    public ShmupGame() throws SlickException
     {
         super("Crazy");
     }
@@ -30,11 +37,6 @@ public class ShmupGame extends BasicGame {
         {
             e.printStackTrace();
         }
-    }
-
-    public void init(GameContainer container) throws SlickException
-    {
-        GameStateManager.init(new ShmupGameState());
     }
 
     public void update(GameContainer container, int delta) throws SlickException
