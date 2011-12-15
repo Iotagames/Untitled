@@ -29,8 +29,7 @@ public class ShmupGameState extends GameState {
        entities.add(npc);
        entities.add(npca);
        entities.add(npcb);
-       camera = new Camera();
-       camera.targetted = guy;
+       camera = new Camera(guy);
     }
 
     public void update(GameContainer gc, int delta) {
