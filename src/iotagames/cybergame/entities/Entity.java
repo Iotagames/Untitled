@@ -106,6 +106,10 @@ public class Entity
         }
     }
     
+    public Vector2f getSize() {
+    	return new Vector2f(getWidth(), getHeight());
+    }
+    
     public boolean isDead() {
         return dead;
     }
@@ -156,7 +160,10 @@ public class Entity
     public void onCollision(Entity other) {
     	for (CollisionEvent e : collision)
     		e.onCollision(this, other);
+    	for (CollisionEvent e : other.collision)
+    		e.onCollision(other, this);
     	onCollision();
+    	other.onCollision();
     }
     
     public String toString() {
