@@ -7,7 +7,7 @@ public class Enemy extends Entity {
 	
 	public void onCollision(Entity other) {
 		if (other instanceof Bullet) {
-			System.out.println("hit by a bullet");
+			System.out.println("hit by a bullet, testing a change");
 			other.die();
 			die();
 		}
