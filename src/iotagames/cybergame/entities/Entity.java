@@ -1,8 +1,11 @@
-package iotagames.cybergame.entity;
+package iotagames.cybergame.entities;
 
+import iotagames.cybergame.events.CollisionEvent;
+import iotagames.cybergame.events.EntityEvent;
 import iotagames.cybergame.utilities.ImageManager;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics; 
@@ -18,9 +21,13 @@ public class Entity
     protected Image image;
     protected boolean dead = false;
     public float scale=1;
-    float xpos, ypos;
+    protected float xpos, ypos;
+    public float xSpeed = 0;
+    public float ySpeed = 0;
     boolean visible = true;
-    protected float hitboxScale = 0.5f;
+    public float hitboxScale = 0.75f;
+    public ArrayList<CollisionEvent> collision = new ArrayList<CollisionEvent>();
+    public ArrayList<EntityEvent> death = new ArrayList<EntityEvent>();
     
     public Entity(String imageRef, float xPos, float yPos) {
         loadImage(imageRef);
@@ -79,9 +86,18 @@ public class Entity
     
     public void die() {
         dead = true;
+        onDeath();
     }
     
-    public void update(GameContainer gc, int delta) { }
+    public void onDeath() {
+    	for (EntityEvent e : death)
+    		e.onEvent(this);
+    }
+    
+    public void update(GameContainer gc, int delta) {
+        xpos += xSpeed;
+        ypos += ySpeed;
+    }
     
     public void draw(GameContainer gc, Graphics g) {
         if (visible && image != null) {
@@ -100,6 +116,8 @@ public class Entity
     }
     
     public boolean collides(Entity other) {
+    	if (other instanceof Bullet && !((Bullet) other).passesFilter(this))
+    		return false;
     	return boundingBox().intersects(other.boundingBox());
     }
     
@@ -110,6 +128,12 @@ public class Entity
     
     // entity vs entity cases
     public void onCollision(Entity other) {
+    	for (CollisionEvent e : collision)
+    		e.onCollision(this, other);
     	onCollision();
+    }
+    
+    public String toString() {
+    	return imageRef;
     }
 }

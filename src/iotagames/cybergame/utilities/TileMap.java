@@ -1,18 +1,19 @@
 package iotagames.cybergame.utilities;
 
-import iotagames.cybergame.entity.Entity;
+import iotagames.cybergame.entities.Entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 
 
 public class TileMap {
     private TiledMap map;
-    //collision map
     private boolean[][] blocked;
     private int size = 32;
+    public static String directory = "data/";
     
     public TileMap(String file) throws SlickException {
     	create(file);
@@ -24,6 +25,10 @@ public class TileMap {
 	}
 	
 	public void create(String file) throws SlickException {
+		if (file.charAt(0) != '/')
+			file = directory + file;
+		if (!file.contains("."))
+			file += ".tmx";
        map = new TiledMap(file);
        // build a collision map based on tile properties in the TileD map
        blocked = new boolean[map.getWidth()][map.getHeight()];
@@ -55,10 +60,11 @@ public class TileMap {
     
     public boolean collides(Entity entity)
     {
-    	float x = entity.getX();
-    	float y = entity.getY();
-    	float w = entity.getWidth();
-    	float h = entity.getHeight();
+    	Rectangle rect = (Rectangle) entity.boundingBox();
+    	float x = rect.getX();
+    	float y = rect.getY();
+    	float w = rect.getWidth();
+    	float h = rect.getHeight();
     	return collides(x,y) || collides(x+w,y) || collides(x,y+h) || collides(x+w,y+h);
     }
 }

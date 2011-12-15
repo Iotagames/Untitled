@@ -1,4 +1,4 @@
-package iotagames.cybergame.gamestate;
+package iotagames.cybergame.gamestates;
 
 import java.util.ArrayList;
 

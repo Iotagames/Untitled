@@ -1,6 +1,6 @@
 package iotagames.cybergame.utilities;
 
-import iotagames.cybergame.entity.Entity;
+import iotagames.cybergame.entities.Entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

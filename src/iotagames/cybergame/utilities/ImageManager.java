@@ -17,21 +17,37 @@ public class ImageManager {
 	} 
 	
 	private Map<String,Texture> images;
+	public static String directory="data/";
 	
 	public void load(String file) {
 		try {
+			String origFile = file;
+			file = addDefaults(file);
 			Image image = new Image(file);
-			images.put(file,image.getTexture());
+			if (image.getWidth() * image.getHeight() == 0)
+				jpgFallback(origFile);
+			else
+				images.put(origFile,image.getTexture());
 		} catch (SlickException e) {
 		} catch (RuntimeException e) {
-			if (file.contains(".png")) {
-				try {
-					String newFile = file.substring(0, file.lastIndexOf(".")) + ".jpg";
-					Image image = new Image(newFile);
-					images.put(file,image.getTexture());
-				} catch (SlickException e1) {
-				}
-			}
+			jpgFallback(file);
+		}
+	}
+	
+	public String addDefaults(String file) {
+		if (file.charAt(0) != '/')
+			file = directory + file;
+		if (!file.contains("."))
+			file += ".png";
+		return file;
+	}
+	
+	public void jpgFallback(String file) {
+		try {
+			String newFile = directory + file + ".jpg";
+			Image image = new Image(newFile);
+			images.put(file,image.getTexture());
+		} catch (SlickException e1) {
 		}
 	}
 	
