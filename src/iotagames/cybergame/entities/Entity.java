@@ -106,6 +106,10 @@ public class Entity
         }
     }
     
+    public Vector2f getSize() {
+    	return new Vector2f(getWidth(), getHeight());
+    }
+    
     public boolean isDead() {
         return dead;
     }
