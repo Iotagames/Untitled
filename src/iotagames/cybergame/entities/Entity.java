@@ -156,7 +156,10 @@ public class Entity
     public void onCollision(Entity other) {
     	for (CollisionEvent e : collision)
     		e.onCollision(this, other);
+    	for (CollisionEvent e : other.collision)
+    		e.onCollision(other, this);
     	onCollision();
+    	other.onCollision();
     }
     
     public String toString() {

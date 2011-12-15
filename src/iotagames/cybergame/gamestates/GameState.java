@@ -12,9 +12,12 @@ public class GameState {
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
     public ArrayList<Entity> toDelete = new ArrayList<Entity>();
     public Camera camera;
+    public GameState background;
+    public GameState foreground;
     public boolean checkCollisions = true;
     
     public void update(GameContainer gc, int delta) {
+    	if (background != null) background.update(gc, delta);
         for (int i=0; i<entities.size(); ++i) {
             Entity e = entities.get(i);
             e.update(gc, delta);
@@ -24,6 +27,7 @@ public class GameState {
             entities.remove(e);
         toDelete.clear();
         if (checkCollisions) collision(gc, delta);
+    	if (foreground != null) foreground.update(gc, delta);
     }
     
     public void collision(GameContainer gc, int delta) {
@@ -39,9 +43,11 @@ public class GameState {
     
     // Don't override
     public void drawing(GameContainer gc, Graphics g) {
+    	if (background != null) background.drawing(gc, g);
         if (camera != null) camera.translate(gc, g);
         draw(gc, g);
         if (camera != null) camera.untranslate(gc, g);
+    	if (foreground != null) foreground.drawing(gc, g);
     }
     
     public void draw(GameContainer gc, Graphics g) {
