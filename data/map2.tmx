@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="22" height="18" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="collision" tilewidth="32" tileheight="32">
+  <image source="collision.png" width="160" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="11" name="tile" tilewidth="32" tileheight="32">
+  <image source="tile.png" trans="ffffff" width="128" height="128"/>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value="false"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collision" width="22" height="18">
+  <properties>
+   <property name="collision" value="collision"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgpBFmojKGmUttQC9zybWHkDlDzVxqgVFz6WvuUEtnIz390gIDAPveuEAwBgAA
+  </data>
+ </layer>
+ <layer name="tiles" width="22" height="18" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNlYGAQpRHmpzKGmctNZUwvc3mgmFRz0PXRy1xYuJNqLrq+oR5vo+ZiTy/E4tH0OzDxRgsMAGlbTmowBgAA
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="44" height="35" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileblue" tilewidth="32" tileheight="32">
+  <image source="tileblue.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="17" name="collision" tilewidth="32" tileheight="32">
+  <image source="collision.png" width="160" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="27" name="decoration" tilewidth="32" tileheight="32">
+  <image source="decoration.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="43" name="decoration2" tilewidth="32" tileheight="32">
+  <image source="decoration2.png" width="128" height="128"/>
+ </tileset>
+ <layer name="collision" width="44" height="35">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WQQqAQAzE+oX9/2c9idaDiDspDEyg15hDZbuqamXGZgfCS7W++QmnqvfpJ5xq9+lXk97uVpNelvSyZH+7W03et9n7we0++/q9v45495jeBwVT/5sSwku13v2EM72Xm3CmlyO9LNnf7iacju+b4/3geJ85zAGMiwh9EBgAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="44" height="35">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WSQqAMBAEk0BO+f9/xduo2Zh0jwnMoU9iWYhLpRBCOni5MxZXe837eFlYi7/CXWHGwWr8PHHeaDXmjM/MpDPCteZcxLVQzgnIk0z3PdMX+U5Y+M5+U3bwRbP8/tbZ7vt1RkxyGUwkm8HtNdpuXG2/ymcc2dur3FY3v5tU09Ya7og56l9GW/e4PSbifbPqddR3R/LZvY6a1f/Nfc/xteh1JNuiJ9HOaJ7f3yfbffFdHUlcRlezuIyuZnGRrf3HLv+/EyIQGAAA
+  </data>
+ </layer>
+ <layer name="Decoration" width="44" height="35">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3SSwqAIBRGYedtoYKMAt3/AruBgqMeyPVanA8O1sh/oHPftkpRCsWZv8ebLOwXeWlO+eI/n70ZHtTK1PCuWufbW6xHvMBeXezVxV5d7NW3WQ8AAAAAAPzKAddpakAQGAAA
+  </data>
+ </layer>
+</map>
