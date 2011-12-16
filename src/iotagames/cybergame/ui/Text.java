@@ -1,6 +1,6 @@
 package iotagames.cybergame.ui;
 
-import iotagames.cybergame.engine.ShmupGame;
+import iotagames.cybergame.utilities.FontManager;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
@@ -9,8 +9,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 
 public class Text extends Field {
-	protected Font font = ShmupGame.font;
+	protected Font font = FontManager.defaultFont;
 	protected String string;
+	public boolean outlined = true;
+	public boolean shadowed = true;
 	
 	public Text(String txt,float xo,float yo) {
 		super(txt,xo,yo);
@@ -27,21 +29,21 @@ public class Text extends Field {
 	public void loadImage(String file) {}
 	
 	public void draw(GameContainer gc, Graphics g) {
-		Color black,white;
-		
-		if (color.a==1) {
+		Color black;
+		if (scale != 1) g.scale(scale, scale);
+		if (color.a==1)
 			black=Color.black;
-			white=Color.white;
-		} else {
-			black = new Color(0,0,0,color.a*255);
-			white = new Color(255,255,255,color.a*255);
+		else
+			black = new Color(0,0,0,(int)(color.a*255));
+		if (outlined) {
+			font.drawString(xpos+1,ypos,string,black);
+			font.drawString(xpos,ypos+1,string,black);
+			font.drawString(xpos-1,ypos,string,black);
+			font.drawString(xpos,ypos-1,string,black);
 		}
-		font.drawString(xpos+1,ypos,string,black);
-		font.drawString(xpos,ypos+1,string,black);
-		font.drawString(xpos-1,ypos,string,black);
-		font.drawString(xpos,ypos-1,string,black);
-		font.drawString(xpos+2,ypos+2,string,black);
-		font.drawString(xpos,ypos,string,white);
+		if (shadowed) font.drawString(xpos+2,ypos+2,string,black);
+		font.drawString(xpos,ypos,string,color);
+		if (scale != 1) g.scale(1f/scale, 1f/scale);
 	}
 	
 	public float getHeight() {

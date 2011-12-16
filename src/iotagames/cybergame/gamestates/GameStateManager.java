@@ -9,15 +9,17 @@ import org.newdawn.slick.Graphics;
 public class GameStateManager {
     public static ArrayList<GameState> states = new ArrayList<GameState>();
     private static GameState entryPoint;
+	private static GameContainer container = null;
     
-    public static void init(GameState entryPoint) {
+    public static void init(GameState entryPoint, GameContainer gc) {
     	GameStateManager.entryPoint = entryPoint;
+        container = gc;
         states.add(entryPoint);
     }
     
     public static GameState currentState() {
     	if (states.size() == 0)
-    		return GameStateManager.entryPoint;
+    		states.add(GameStateManager.entryPoint);
         return states.get(states.size()-1);
     }
     
@@ -27,5 +29,22 @@ public class GameStateManager {
     
     public static void drawCurrent(GameContainer gc, Graphics g) {
         currentState().drawing(gc, g);
+        gc.getInput().clearKeyPressedRecord();
+        gc.getInput().clearMousePressedRecord();
     }
+	
+	public static void toMainMenu() {
+		while (!(currentState() instanceof MainMenu))
+			back();
+	}
+	
+	public static void back() {
+		states.remove(states.size()-1);
+	}
+
+	public static void exit() {
+		if (container != null) {
+			container.exit();
+		}
+	}
 }

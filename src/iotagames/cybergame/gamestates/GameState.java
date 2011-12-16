@@ -6,7 +6,7 @@ import iotagames.cybergame.utilities.Camera;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer; 
-import org.newdawn.slick.Graphics;  
+import org.newdawn.slick.Graphics;
 
 public class GameState {
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -54,4 +54,16 @@ public class GameState {
     	for (int i=0; i<entities.size(); ++i)
             entities.get(i).draw(gc, g);
     }
+	
+	public void back() {
+		GameStateManager.states.remove(this);
+	}
+	
+	public void menu() {
+		GameStateManager.toMainMenu();
+	}
+	
+	public void exitGame() {
+		GameStateManager.exit();
+	}
 }

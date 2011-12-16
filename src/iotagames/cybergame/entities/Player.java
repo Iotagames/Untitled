@@ -2,16 +2,17 @@ package iotagames.cybergame.entities;
 
 import iotagames.cybergame.gamestates.GameState;
 import iotagames.cybergame.gamestates.GameStateManager;
+import iotagames.cybergame.utilities.AnimationMap;
 
 import org.newdawn.slick.Animation; 
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics; 
-import org.newdawn.slick.Image; 
 import org.newdawn.slick.Input;  
 
 public class Player extends Entity {
-    private Animation sprite, up, down, left, right;
+    private AnimationMap animations;
     private int cooldown = 0;
+    private float bulletAngle = 270;
     
     public Player(String imageRef, float xPos, float yPos) {
         super(imageRef, xPos, yPos);
@@ -27,16 +28,11 @@ public class Player extends Entity {
     }
     
     public void createAnimation() {
-        Image [] movementUp = {images.get("player_ud2"), images.get("player_ud")};
-        Image [] movementDown = {images.get("player_ud"), images.get("player_ud2")};
-        Image [] movementLeft = {images.get("player_left"), images.get("player_left2")};
-        Image [] movementRight = {images.get("player_right"), images.get("player_right2")};
-        int [] duration = {150, 150};
-        up = new Animation(movementUp, duration, false);
-        down = new Animation(movementDown, duration, false);
-        left = new Animation(movementLeft, duration, false);
-        right = new Animation(movementRight, duration, false);
-        sprite = right;
+    	animations = new AnimationMap("right");
+    	animations.put("up", "player", "ud2, ud");
+    	animations.put("down", "player", "ud, ud2");
+    	animations.put("left", "player", "left, left2");
+    	animations.put("right", "player", "right, right2");
     }
     
     public void fire(Bullet bullet) {
@@ -57,8 +53,7 @@ public class Player extends Entity {
     }
     
     public void draw(GameContainer gc, Graphics g) {
-    	if (sprite != null)
-    		sprite.draw(xpos, ypos);
+    	animations.draw(xpos, ypos, getWidth(), getHeight());
     }
     
     public void control(Input input, int delta) {
@@ -71,27 +66,29 @@ public class Player extends Entity {
             xSpeed = 0;
 
         if (input.isKeyDown(Input.KEY_DOWN))
-            ySpeed = +speed;
+            ySpeed = speed;
         else if (input.isKeyDown(Input.KEY_UP))
             ySpeed = -speed;
         else
             ySpeed = 0;
         
+        calculateAngle();
+        
         if (input.isKeyDown(Input.KEY_Z)) {
             if(canFire())
             {
-            	fire(new Bullet(this, "bullet", xSpeed*2, ySpeed*2, 5, calculateAngle(), 1000));
+            	fire(new Bullet(this, "bullet", xSpeed*2, ySpeed*2, 5, bulletAngle, 1000));
             	cooldown = 10;
             }
          }
     }
     
     public void updateSprite(int delta) {
-    	if (xSpeed < 0) sprite = left;
-    	else if (xSpeed > 0) sprite = right;
-    	if (ySpeed < 0) sprite = up;
-    	else if (ySpeed > 0) sprite = down;
-    	if (sprite != null) sprite.update(delta);
+    	if (xSpeed < 0) animations.set("left");
+    	else if (xSpeed > 0) animations.set("right");
+    	if (ySpeed < 0) animations.set("up");
+    	else if (ySpeed > 0) animations.set("down");
+    	animations.update(delta);
     }
     
     public boolean canFire() {
@@ -99,24 +96,13 @@ public class Player extends Entity {
     }
     
     public float calculateAngle() {
-    	float angle = 180;
-        if (xSpeed == 0 && ySpeed == 0) {
-	        if (sprite == left) {
-	        	angle = 90;
-	        } else if (sprite == right) {
-	        	angle = 270;
-	        } else if (sprite == up) {
-	        	angle = 180;
-	        } else {
-	        	angle = 0;
-	        }
-        } else {
-        	angle = (float) Math.toDegrees(Math.atan2(ySpeed, xSpeed)) + 270;
-        }
-        return angle;
+        if (!(xSpeed == 0 && ySpeed == 0))
+        	bulletAngle = (float) Math.toDegrees(Math.atan2(ySpeed, xSpeed)) + 270;
+        return bulletAngle;
     }
     
     public float getWidth() {
+    	Animation sprite = animations.get();
         if (sprite != null) {
             return sprite.getWidth() * scale;
         } else {
@@ -125,6 +111,7 @@ public class Player extends Entity {
     }
     
     public float getHeight() {
+    	Animation sprite = animations.get();
         if (sprite != null) {
             return sprite.getHeight() * scale;
         } else {

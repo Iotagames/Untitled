@@ -1,6 +1,8 @@
 package iotagames.cybergame.engine;
 
 import iotagames.cybergame.gamestates.*;
+import iotagames.cybergame.utilities.FontManager;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Font;
@@ -11,12 +13,12 @@ import org.newdawn.slick.SlickException;
 // init calls the entrypoint state, if we want to change it, do it here
 
 public class ShmupGame extends BasicGame {
-    public static Font font;
-    
+	
     public void init(GameContainer container) throws SlickException
     {
-    	ShmupGame.font = container.getDefaultFont();
-        GameStateManager.init(new MainMenu());
+        Font trebuc = FontManager.put("trebuc_24_b", "trebuc", 24, true, false);
+        container.setDefaultFont(trebuc);
+        GameStateManager.init(new MainMenu(), container);
     }
     
     public ShmupGame() throws SlickException
