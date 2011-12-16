@@ -3,6 +3,7 @@ package iotagames.cybergame.entities;
 import iotagames.cybergame.events.CollisionEvent;
 import iotagames.cybergame.events.EntityEvent;
 import iotagames.cybergame.utilities.ImageManager;
+import iotagames.cybergame.utilities.PolarVector;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -79,6 +80,23 @@ public class Entity
     
     public void setPosition(Vector2f pos) {
     	setPosition(pos.x, pos.y);
+    }
+    
+    public void setSpeed(float xs, float ys) {
+    	xSpeed = xs;
+    	ySpeed = ys;
+    }
+    
+    public void setSpeed(Vector2f speed) {
+    	setSpeed(speed.x, speed.y);
+    }
+    
+    public void setSpeed(PolarVector speed) {
+    	setSpeed(speed.toCart());
+    }
+    
+    public Vector2f getSpeed() {
+    	return new Vector2f(xSpeed, ySpeed);
     }
     
     public void move(float x, float y) {
