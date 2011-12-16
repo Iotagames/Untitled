@@ -72,10 +72,12 @@ public class Player extends Entity {
         else
             ySpeed = 0;
         
+        calculateAngle();
+        
         if (input.isKeyDown(Input.KEY_Z)) {
             if(canFire())
             {
-            	fire(new Bullet(this, "bullet", xSpeed*2, ySpeed*2, 5, calculateAngle(), 1000));
+            	fire(new Bullet(this, "bullet", xSpeed*2, ySpeed*2, 5, bulletAngle, 1000));
             	cooldown = 10;
             }
          }
