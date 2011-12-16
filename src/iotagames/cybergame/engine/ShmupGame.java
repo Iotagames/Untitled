@@ -13,7 +13,6 @@ import org.newdawn.slick.SlickException;
 // init calls the entrypoint state, if we want to change it, do it here
 
 public class ShmupGame extends BasicGame {
-	
     public void init(GameContainer container) throws SlickException
     {
         Font trebuc = FontManager.put("trebuc_24_b", "trebuc", 24, true, false);

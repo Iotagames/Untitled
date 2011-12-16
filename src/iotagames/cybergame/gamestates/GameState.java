@@ -15,6 +15,7 @@ public class GameState {
     public GameState background;
     public GameState foreground;
     public boolean checkCollisions = true;
+    public boolean showHitboxes = true;
     
     public void update(GameContainer gc, int delta) {
     	if (background != null) background.update(gc, delta);

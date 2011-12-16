@@ -7,8 +7,8 @@ public class Button extends Field {
 	private Text text;
 	
 	public Button(String file,String txt,float xo,float yo,float wo,float ho) {
-		super(file,xo,yo,wo,ho);
-		text = new Text(txt,xo,yo+image.getHeight()/4);
+		this(file,txt,xo,yo);
+		setSize(wo,ho);
 	}
 	
 	public Button(String file,String txt,float xo,float yo) {
@@ -17,13 +17,11 @@ public class Button extends Field {
 	}
 	
 	public Button(String file,float xo,float yo) {
-		super(file,xo,yo);
-		text = new Text("",xo,yo+image.getHeight()/4);
+		this(file,"",xo,yo);
 	}
 	
 	public Button(String file) {
-		super(file);
-		text = new Text("", 0, 0);
+		this(file,0,0);
 	}
 	
 	public void setText(String txt) {

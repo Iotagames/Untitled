@@ -8,6 +8,7 @@ import iotagames.cybergame.utilities.PolarVector;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics; 
 import org.newdawn.slick.Image; 
@@ -26,6 +27,7 @@ public class Entity
     public float xSpeed = 0;
     public float ySpeed = 0;
     boolean visible = true;
+    public int blendMode = Graphics.MODE_NORMAL;
     public float hitboxScale = 0.75f;
     public ArrayList<CollisionEvent> collision = new ArrayList<CollisionEvent>();
     public ArrayList<EntityEvent> death = new ArrayList<EntityEvent>();
@@ -149,8 +151,25 @@ public class Entity
     
     public void draw(GameContainer gc, Graphics g) {
         if (visible && image != null) {
+        	blending(g);
             image.draw(xpos, ypos, scale);
+            resetBlending(g);
         }
+    }
+    
+    protected void blending(Graphics g) {
+    	if (blendMode == Graphics.MODE_ADD || blendMode == Graphics.MODE_SCREEN) {
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glColorMask(true, true, true, false);
+			int mode = blendMode == Graphics.MODE_ADD ? GL11.GL_ONE : GL11.GL_ONE_MINUS_CONSTANT_ALPHA;
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, mode);
+    	} else {
+    		g.setDrawMode(blendMode);
+    	}
+    }
+    
+    protected void resetBlending(Graphics g) {
+    	g.setDrawMode(Graphics.MODE_NORMAL);
     }
 
     public Shape boundingBox() {
