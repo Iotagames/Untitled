@@ -7,6 +7,7 @@ import iotagames.cybergame.utilities.TileMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 
 public class TileMapState extends GameState {
     protected TileMap map;
@@ -16,7 +17,13 @@ public class TileMapState extends GameState {
     }
 
     public void update(GameContainer gc, int delta) {
+    	control(gc, delta, gc.getInput());
         super.update(gc, delta);
+    }
+    
+    private void control(GameContainer gc, int delta, Input input) {
+    	if (input.isKeyPressed(Input.KEY_ESCAPE))
+    		GameStateManager.states.add(new PauseMenu(this));
     }
     
     public void collision(GameContainer gc, int delta) {

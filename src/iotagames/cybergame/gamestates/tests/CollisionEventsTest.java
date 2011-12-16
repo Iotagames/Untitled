@@ -12,6 +12,8 @@ import iotagames.cybergame.events.CollisionEvent;
 import iotagames.cybergame.events.EntityEvent;
 import iotagames.cybergame.events.TileMapEvent;
 import iotagames.cybergame.gamestates.GameState;
+import iotagames.cybergame.gamestates.GameStateManager;
+import iotagames.cybergame.gamestates.PauseMenu;
 import iotagames.cybergame.gamestates.TileMapState;
 import iotagames.cybergame.ui.Text;
 import iotagames.cybergame.ui.TextField;
