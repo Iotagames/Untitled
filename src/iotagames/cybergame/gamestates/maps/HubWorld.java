@@ -7,7 +7,6 @@ import iotagames.cybergame.gamestates.TileMapState;
 import iotagames.cybergame.utilities.Camera;
 
 public class HubWorld extends TileMapState {
-    Player guy = new Player("player", 300, 300);
     Enemy enemy = new Enemy("bug2", 400, 400);
     NPC npc = new NPC("npc_ud", 256, 75);
     NPC npca = new NPC("npc_ud", 224, 75);
@@ -15,11 +14,12 @@ public class HubWorld extends TileMapState {
     
 	public HubWorld() {
 		super("hubworld");
-		entities.add(guy);
+	    player = new Player("player", 300, 300);
+		entities.add(player);
 		entities.add(enemy);
 		entities.add(npc);
 		entities.add(npca);
 		entities.add(npcb);
-		camera = new Camera(guy);
+		camera = new Camera(player);
 	}
 }

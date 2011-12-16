@@ -53,7 +53,9 @@ public class Player extends Entity {
     }
     
     public void draw(GameContainer gc, Graphics g) {
+    	blending(g);
     	animations.draw(xpos, ypos, getWidth(), getHeight());
+    	resetBlending(g);
     }
     
     public void control(Input input, int delta) {
