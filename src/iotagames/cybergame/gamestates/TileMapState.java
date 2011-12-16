@@ -3,6 +3,7 @@ package iotagames.cybergame.gamestates;
 import java.awt.Point;
 
 import iotagames.cybergame.entities.Entity;
+import iotagames.cybergame.entities.Player;
 import iotagames.cybergame.utilities.TileMap;
 
 import org.newdawn.slick.GameContainer;
@@ -11,9 +12,11 @@ import org.newdawn.slick.Input;
 
 public class TileMapState extends GameState {
     protected TileMap map;
+    public Player player;
     
     public TileMapState(String mapFile) {
        map = new TileMap(mapFile);
+       map.owner = this;
     }
 
     public void update(GameContainer gc, int delta) {
@@ -35,6 +38,10 @@ public class TileMapState extends GameState {
 	        	map.onCollision(e, tile);
 	        }
         }
+    }
+    
+    public TileMap getMap() {
+    	return map;
     }
     
     public void draw(GameContainer gc, Graphics g) {
