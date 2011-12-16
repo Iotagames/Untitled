@@ -1,6 +1,6 @@
 package iotagames.cybergame.ui;
 
-import iotagames.cybergame.engine.ShmupGame;
+import iotagames.cybergame.utilities.FontManager;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 
 public class Text extends Field {
-	protected Font font = ShmupGame.font;
+	protected Font font = FontManager.defaultFont;
 	protected String string;
 	public boolean outlined = true;
 	public boolean shadowed = true;
