@@ -41,6 +41,7 @@ public class Button extends Field {
 	
 	public void draw(GameContainer gc, Graphics g) {
 		centerText();
+		text.color.a = color.a;
 		super.draw(gc, g);
 		text.draw(gc, g);
 	}

@@ -15,7 +15,6 @@ public class Field extends Entity {
 	protected float w;
 	protected float h;
 	protected boolean focused = false;
-	protected boolean selected = false;
 	protected Color color = new Color(255, 255, 255, 255);
 	public ArrayList<EntityEvent> mouseover = new ArrayList<EntityEvent>();
 	public ArrayList<EntityEvent> mouseout = new ArrayList<EntityEvent>();
@@ -61,8 +60,8 @@ public class Field extends Entity {
 	public void update(GameContainer gc, int delta) {
 		super.update(gc, delta);
 		Input input = gc.getInput();
-		if (!focused && boundingBox().contains(input.getMouseX(), input.getMouseY())) {
-			onMouseOver();
+		if (boundingBox().contains(input.getMouseX(), input.getMouseY())) {
+			if (!focused) onMouseOver();
 			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 				onMouseDown();
 		} else {
@@ -71,7 +70,7 @@ public class Field extends Entity {
 	}
 	
 	public void draw(GameContainer gc, Graphics g) {
-		color.a = focused && !selected ? 1 : 0.5f;
+		color.a = focused ? 1 : 0.5f;
 		image.draw(xpos,ypos,w,h,color);
 	}
 	

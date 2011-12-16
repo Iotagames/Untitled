@@ -45,10 +45,7 @@ public class Camera {
     
     public void untranslate(GameContainer gc, Graphics g) {
     	if (active) {
-    		if (centered)
-    			g.translate((cameraX*scale) - (gc.getWidth()/2), (cameraY*scale) - (gc.getHeight()/2));
-    		else
-    			g.translate(cameraX*scale, cameraY*scale);
+    		g.resetTransform();
     	}
     }
 }
