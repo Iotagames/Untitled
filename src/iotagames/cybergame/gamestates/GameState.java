@@ -17,6 +17,7 @@ public class GameState {
     public boolean checkCollisions = true;
     public boolean showHitboxes = true;
     
+
     public void update(GameContainer gc, int delta) {
     	if (background != null) background.update(gc, delta);
         for (int i=0; i<entities.size(); ++i) {

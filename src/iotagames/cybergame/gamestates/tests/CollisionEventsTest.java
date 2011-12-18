@@ -40,6 +40,15 @@ public class CollisionEventsTest extends TileMapState {
 		foreground.entities.add(debug);
 		
 		addTests();
+		addNPCDialogue();
+	}
+	
+	public void addNPCDialogue() {
+		String[] dialogue = {
+		    "blahblahblah", "oh sweet",
+		    "testing", "etc..."
+		};
+		npc.addDialogue(this, dialogue);
 	}
 	
 	public void addEnemies(int num) {
