@@ -14,6 +14,7 @@ public class HubWorld extends TileMapState {
 	public HubWorld() {
 		super("hubworld");
 	    player = new Player("player", 300, 300);
+	    player.canShoot = false;
 		entities.add(player);
 		entities.add(npc);
 		entities.add(npca);
