@@ -12,6 +12,7 @@ public class NPC extends Entity {
 	
 	public NPC(String imageRef, float xPos, float yPos) {
 		super(imageRef, xPos, yPos);
+		canActivate = true;
 	}
 	
 	public void update(GameContainer gc, int delta) {

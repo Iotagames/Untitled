@@ -75,6 +75,10 @@ public class AnimationMap extends HashMap<String, Animation> {
 		return get(current);
 	}
 	
+	public String currentState() {
+		return current;
+	}
+	
 	public void set(String key) {
 		if (containsKey(key))
 			current = key;

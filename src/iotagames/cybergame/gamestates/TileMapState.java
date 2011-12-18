@@ -32,12 +32,39 @@ public class TileMapState extends GameState {
     public void collision(GameContainer gc, int delta) {
     	super.collision(gc, delta);
         for (Entity e : entities) {
+	        	if (e.canActivate && player != null && e != player)
+	        		activity(gc.getInput(), player.animationState(), e);
 	        Point tile = map.collides(e);
 	        if (tile != null) {
 	        	e.onCollision();
 	        	map.onCollision(e, tile);
 	        }
         }
+    }
+    
+    public void activity(Input input, String state, Entity other) {
+    	if (input.isKeyPressed(Input.KEY_Z)) {
+			Point ptile = player.tile(map.getTileSize());
+			Point ntile = other.tile(map.getTileSize());
+			boolean active = false;
+	    	if (ptile.x == ntile.x && ptile.y == ntile.y)
+	    		active = true;
+	    	else {
+	    		if (ptile.y == ntile.y) {
+	    			if (state.equals("left")) 
+	    				active = ptile.x == ntile.x + 1;
+					else if (state.equals("right")) 
+						active = ptile.x == ntile.x - 1;
+	    		}
+	    		if (ptile.x == ntile.x) {
+	    			if (state.equals("up")) 
+	    				active = ptile.y == ntile.y + 1;
+					else if (state.equals("down")) 
+						active = ptile.y == ntile.y - 1;
+	    		}
+	    	}
+			if (active) other.onActivity(player);
+    	}
     }
     
     public TileMap getMap() {
