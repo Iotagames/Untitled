@@ -13,6 +13,7 @@ public class Player extends Entity {
     private AnimationMap animations;
     private int cooldown = 0;
     private float bulletAngle = 270;
+    public boolean canShoot = true;
     
     public Player(String imageRef, float xPos, float yPos) {
         super(imageRef, xPos, yPos);
@@ -94,7 +95,7 @@ public class Player extends Entity {
     }
     
     public boolean canFire() {
-    	return cooldown == 0;
+    	return canShoot && cooldown == 0;
     }
     
     public float calculateAngle() {
