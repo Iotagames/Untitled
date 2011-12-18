@@ -9,6 +9,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import iotagames.cybergame.entities.Enemy;
 import iotagames.cybergame.entities.Entity;
+import iotagames.cybergame.entities.NPC;
 import iotagames.cybergame.entities.Player;
 import iotagames.cybergame.events.CollisionEvent;
 import iotagames.cybergame.events.EntityEvent;
@@ -21,6 +22,7 @@ import iotagames.cybergame.utilities.TileMap;
 
 public class CollisionEventsTest extends TileMapState {
     Enemy enemy = new Enemy("bug2", 400, 300);
+    NPC npc = new NPC("npc_ud", 250, 150);
     Text info = new Text("", 10, 50);
     Text debug = new TextField("", 10, 550, 600, 100);
     boolean testDone = false;
@@ -30,8 +32,9 @@ public class CollisionEventsTest extends TileMapState {
 		entities.clear();
 	    player = new Player("player", 300, 300);
 		entities.add(player);
-		entities.add(enemy);
-		addEnemies(10);
+		entities.add(npc);
+		//entities.add(enemy);
+		//addEnemies(10);
 		foreground = new GameState();
 		foreground.entities.add(info);
 		foreground.entities.add(debug);
@@ -67,11 +70,16 @@ public class CollisionEventsTest extends TileMapState {
 	   			print(first + " has collided with " + second + " at " + getTime() + "!");
 			}
         });
-        enemy.collision.add(new CollisionEvent() {
+        npc.activity.add(new CollisionEvent() {
+			public void onCollision(Entity first, Entity second) {
+	   			print(first + " has activated " + second + " at " + getTime() + "!");
+			}
+        });
+        /*enemy.collision.add(new CollisionEvent() {
 	   		public void onCollision(Entity first, Entity second) {
 	   			testDone = true;
 	   		}
-        });
+        });*/
         /*enemy.behaviour.add(new EntityEvent() {
 	   		public void onEvent(Entity entity) {
 	   			if (!testDone) entity.xSpeed = -3;
