@@ -31,6 +31,8 @@ public class Entity
     public float hitboxScale = 0.75f;
     public ArrayList<CollisionEvent> collision = new ArrayList<CollisionEvent>();
     public ArrayList<EntityEvent> death = new ArrayList<EntityEvent>();
+    public ArrayList<CollisionEvent> activity = new ArrayList<CollisionEvent>();
+    public boolean canActivate = false;
     
     public Entity(String imageRef, float xPos, float yPos) {
         loadImage(imageRef);
@@ -207,4 +209,9 @@ public class Entity
     public String toString() {
     	return imageRef;
     }
+	
+	public void onActivity(Entity player) {
+		for (CollisionEvent e : activity)
+			e.onCollision(this, player);
+	}
 }

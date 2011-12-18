@@ -94,6 +94,10 @@ public class Player extends Entity {
     	animations.update(delta);
     }
     
+    public String animationState() {
+    	return animations.currentState();
+    }
+    
     public boolean canFire() {
     	return canShoot && cooldown == 0;
     }
