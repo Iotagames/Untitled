@@ -64,7 +64,8 @@ public class Entity
     }
     
     public Point tile(int tileSize) {
-    	return new Point((int)(xpos/tileSize), (int)(ypos/tileSize));
+    	Vector2f center = getCenter();
+    	return new Point((int)(center.x/tileSize), (int)(center.y/tileSize));
     }
     
     public Vector2f getCenter() {
